@@ -22,8 +22,39 @@ function generateLink(id) {
 
 function buildFolderObject(folderName, files) {
   const date = getDateFromFolderName(folderName);
-  const grouped = {};
+  const folderPath = path.join(imagesRoot, folderName);
+  const jsonPath = path.join(folderPath, 'images.json');
 
+  if (fs.existsSync(jsonPath)) {
+    try {
+      const jsonData = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
+
+      // ✅ 실존하는 이미지 파일만 필터링
+      const validImages = Array.isArray(jsonData)
+        ? jsonData.filter(img => files.includes(img.file))
+        : [];
+
+      if (validImages.length === 0) {
+        console.warn(`⚠️ images.json found but no matching images in ${folderName}`);
+      }
+
+      const images = validImages.map(img => ({
+        ...img,
+        date: date || '',
+      }));
+
+      return {
+        name: folderName,
+        title: folderName.replace(/_/g, '-'),
+        images
+      };
+    } catch (err) {
+      console.error(`❌ Failed to parse images.json in ${folderName}:`, err.message);
+    }
+  }
+
+  // 🔁 fallback: 자동 생성
+  const grouped = {};
   files.forEach(file => {
     const name = path.parse(file).name;
     if (!grouped[name]) grouped[name] = [];
@@ -47,6 +78,8 @@ function buildFolderObject(folderName, files) {
   };
 }
 
+
+
 app.get('/api/folders', (req, res) => {
   const folders = fs.readdirSync(imagesRoot).filter(f =>
     fs.statSync(path.join(imagesRoot, f)).isDirectory()
@@ -66,3 +99,4 @@ app.get('/api/folders', (req, res) => {
 app.listen(PORT, () => {
   console.log(`✅ 서버 실행 중: http://localhost:${PORT}/api/folders`);
 });
+
