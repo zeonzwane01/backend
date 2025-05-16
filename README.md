@@ -101,3 +101,34 @@ git push origin main
 ---
 
 > 이 문서는 처음 보는 사람도 쉽게 실행할 수 있도록 작성되었습니다. 실행 중 문제가 발생하면 `node_modules` 재설치 또는 포트 충돌 여부를 확인하세요.
+
+
+---
+
+## 📥 프로젝트 코드 다운로드 방법
+
+처음 방문한 경우 아래 방법 중 하나로 코드를 내려받을 수 있습니다.
+
+### ✅ 1. Git으로 클론하기 (권장)
+
+```bash
+git clone https://github.com/zeonzwane01/front.git
+git clone https://github.com/zeonzwane01/backend.git
+```
+
+- `front`와 `backend` 폴더가 각각 복제됩니다.
+- 이후 각 폴더에서 실행 가이드를 따라 진행하면 됩니다.
+
+### 📁 2. GitHub 웹사이트에서 수동 다운로드
+
+1. 아래 저장소에 접속:
+   - 프론트엔드: [https://github.com/zeonzwane01/front](https://github.com/zeonzwane01/front)
+   - 백엔드: [https://github.com/zeonzwane01/backend](https://github.com/zeonzwane01/backend)
+
+2. 초록색 `Code` 버튼 클릭 → `Download ZIP` 선택
+
+3. 압축을 해제한 후 각각의 폴더에서 실행 가이드를 따라 진행
+
+> Git 설치가 어려운 경우 ZIP 다운로드 방식도 충분합니다.
+
+---
